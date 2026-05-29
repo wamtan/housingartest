@@ -38,35 +38,50 @@
 
 <body>
   <model-viewer
-  src="character.glb"
-  ios-src="character.usdz"
-  ar
-  ar-modes="webxr scene-viewer quick-look"
-  camera-controls
-  auto-rotate
-  shadow-intensity="1"
-  exposure="1"
-  alt="オリジナルキャラクター">
+    id="viewer"
+    src="character.glb"
+    ios-src="character.usdz"
+    ar
+    ar-modes="scene-viewer quick-look webxr"
+    camera-controls
+    auto-rotate
+    shadow-intensity="1"
+    exposure="1"
+    alt="オリジナルキャラクター">
+  </model-viewer>
 
-  <button slot="ar-button" style="
-    position: absolute;
+  <button id="arButton" style="
+    position: fixed;
     bottom: 80px;
     left: 50%;
     transform: translateX(-50%);
+    z-index: 9999;
     padding: 14px 24px;
     border: none;
     border-radius: 999px;
-    background: #ffffff;
+    background: white;
     font-size: 18px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.25);
   ">
     ARで見る
   </button>
 
-</model-viewer>
-
   <div class="note">
-    「ARで見る」を押すと、Android/iPhoneで平面AR表示します
+    AndroidはChrome、iPhoneはSafariで開いてください
   </div>
+
+  <script>
+    const viewer = document.getElementById('viewer');
+    const arButton = document.getElementById('arButton');
+
+    arButton.addEventListener('click', async () => {
+      try {
+        await viewer.activateAR();
+      } catch (e) {
+        alert('ARを起動できませんでした。Google Play 開発者サービス（AR）やブラウザを確認してください。');
+        console.error(e);
+      }
+    });
+  </script>
 </body>
 </html>
