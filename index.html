@@ -50,7 +50,7 @@
     alt="オリジナルキャラクター">
   </model-viewer>
 
-  <button id="arButton" style="
+    <button id="arButton" style="
     position: fixed;
     bottom: 80px;
     left: 50%;
@@ -65,6 +65,21 @@
   ">
     ARで見る
   </button>
+
+  <script>
+    const viewer = document.getElementById('viewer');
+    const arButton = document.getElementById('arButton');
+
+    arButton.addEventListener('click', async () => {
+      try {
+        await viewer.activateAR();
+      } catch (e) {
+        alert('ARを起動できませんでした。');
+        console.error(e);
+      }
+    });
+  </script>
+</body>
 
   
 
